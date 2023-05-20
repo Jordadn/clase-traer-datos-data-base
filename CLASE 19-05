@@ -1,0 +1,41 @@
+
+use App\Http\Controllers\PerrosController;// API
+route::get('/perros',[PerrosController::class,'listado']);
+route::post('/perros/registrar',[PerrosController::class,'registrar']);
+route::put('/perros/actualizar/{id}',[PerrosController::class,'actualizar']);
+route::get('/perros/eliminar/{íd}',[PerrosController::class,'eliminar']);
+
+
+MODEL
+protected $table = 'perros';
+    protected $fillable =[
+        'nombre',
+        'color',
+        'edad'
+    ];
+    
+ CONTROLLERS
+ use App\Models\Perro;
+ 
+ function registrar(Request $request){
+        $datos = $request -> all();
+        perro::create($datos);
+        echo 'Se registro al pero correctamente'; 
+       }
+       function listar(Request $request){
+        $registros = perro::all();
+        echo json_encode($registros);
+       }
+
+       function actualizar($id,Request $request){
+        $datos = $request -> all();
+        $perrp = Gato::find($id);
+        $perro->update($datos);
+        echo 'Se actualizo al perro correctamente'; 
+       }
+
+       function eliminar($id) {
+        $perro = Perro::find($id);
+        $perro->delete();
+        echo 'Se mato al perro correctamente';
+       }
